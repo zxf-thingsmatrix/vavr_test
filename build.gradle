@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'lost.canvas'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    mavenLocal()
+    mavenCentral()
+}
+
+def vavrVer = '0.10.3'
+def junitVer = '4.12'
+dependencies {
+    implementation group: 'io.vavr', name: 'vavr', version: vavrVer
+    testImplementation group: 'junit', name: 'junit', version: junitVer
+}

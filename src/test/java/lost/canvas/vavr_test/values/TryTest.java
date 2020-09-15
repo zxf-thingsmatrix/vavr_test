@@ -4,6 +4,10 @@ import io.vavr.control.Try;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.Predicates.instanceOf;
+
 public class TryTest {
     @Test
     public void test_success() {
@@ -85,13 +89,17 @@ public class TryTest {
     }
 
     @Test
-    public void test_failure_to_success_4() {
-//        Object v = Try.of(() -> {
-//            throw new Exception("checked error");
-//        }).mapFailure()
-//                .getOrElse("canvas");
-//
-//        Assert.assertEquals("canvas", v);
+    public void test_failure_to_failure() {
+        Throwable cause = Try.of(() -> {
+            throw new IllegalArgumentException("checked error");
+        }).mapFailure(
+                Case($(instanceOf(RuntimeException.class)), (i) -> new Error(i)),
+                Case($(instanceOf(Exception.class)), (i) -> new RuntimeException(i)),
+                Case($(), (i) -> new Throwable(i))
+        ).getCause();
+
+        Assert.assertTrue(cause instanceof Error);
+        System.out.println(cause);
     }
 
     @Test

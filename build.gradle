@@ -11,9 +11,12 @@ repositories {
     mavenCentral()
 }
 
-def vavrVer = '0.10.3'
-def junitVer = '4.12'
+ext {
+    vavrVer = '0.10.3'
+    junitVer = '4.12'
+}
+
 dependencies {
-    implementation group: 'io.vavr', name: 'vavr', version: vavrVer
-    testImplementation group: 'junit', name: 'junit', version: junitVer
+    implementation "io.vavr:vavr:${vavrVer}"
+    testImplementation "junit:junit:${junitVer}"
 }
